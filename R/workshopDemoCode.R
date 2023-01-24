@@ -24,18 +24,18 @@
 library(tidyverse)
 library(ggplot2)
 library(RColorBrewer)
+library(here)
 
 ###LOAD DATA### 
-df <- read_csv(here("R Workshop Connection to Nature Survey_May 17, 2022_21.12")) %>%
-  
-  # Set working directory
-  setwd()
+df <- read_csv(here("data/rawData/Connection to Nature Survey R Workshop.csv")) 
+
 
 ###REMOVE UNWANTED DATA###
 #Remove unnecessary data and filter unwanted responses
 
 # Remove rows 3 to 58 of data which are unneeded headings and test/preview responses
-slice(-3:-58)
+df <- slice(df, -(3:58))
+# look at the data using head(df)
 
 # Filter incomplete records
 df <- filter(df, df$Finished == "True")
@@ -48,6 +48,7 @@ df <- filter(df, df$Q14 == "I live in the City of Melbourne", "I live outside th
 
 # Filter attention check response Q47
 df <- filter(df, df$Q47 == "Your connection to nature in the City of Melbourne")
+
 
 # Remove junk columns
 df <- select(df, -c(1:11))
